@@ -1,0 +1,152 @@
+A. Simplified Banking System
+time limit per test1 second
+memory limit per test256 megabytes
+Introduction:
+
+Your task is to implement a banking system simulation using various design patterns. This problem is focused on creating a non-interactive system that processes a series of banking operations.
+
+Requirements:
+
+System Features:
+Account Creation: Enable users to create accounts.
+Deposit and Withdrawal Operations: Facilitate depositing and withdrawing funds.
+Transfer funds: Users should be able to transfer money to other users
+Activate/Deactivate: Users can deactivate and activate their accounts in instance of time.
+View Account Details: Allow users to view their account details.
+Design Patterns: Incorporate at least three of the covered design patterns that you think it makes sense. At least one design pattern from each category (Creational, Structural, Behavioral). The following design patterns are examples:
+Singleton: Ensure only a single instance of the banking system exists.
+State: Use to manage different states of an account (e.g., active, inactive, overdrawn).
+Strategy: Implement for different operational strategies, like transaction fees for different account types.
+Adapter: Allow interaction between incompatible interfaces, such as linking legacy systems with new account types.
+Decorator: Use to add additional features to accounts dynamically (e.g., overdraft protection, rewards).
+Note: You are not obliged to incorporate the suggested design patterns as long your choices fit their use. Make sure you choices are from what is covered
+Covered Design patterns:
+
+Singleton
+State
+Prototype
+Strategy
+Adapter
+Composite
+Façade
+Decorator
+Proxy
+Builder
+Account Types and (Transfer, Withdraw) Fees: There are three types of accounts, each with its own transaction fee structure:
+
+Savings Account:
+Description: Typically used for storing money not intended for daily expenses. Savings accounts often offer interest on the balance.
+Transaction Fee: 1.5% per transaction. This lower fee reflects the encouragement of saving and less frequent transactions compared to other account types.
+
+Checking Account:
+Description: Designed for daily transactions and frequent access. These accounts usually don't earn interest and are used for regular expenses like bill payments.
+Transaction Fee: 2% per transaction. The slightly higher fee is due to the higher volume of transactions and the convenience of easy access and frequent use.
+
+Business Account:
+Description: Tailored for businesses, handling higher volumes of transactions and offering features aligned with business needs, like payroll services or higher withdrawal limits.
+Transaction Fee: 2.5% per transaction. The highest fee among the accounts, justified by the higher transaction volumes and additional features provided for business purposes.
+In each case, the transaction fee is deducted from the amount being withdrawn or transferred, directly affecting the transaction's net amount. For instance, transferring $100 from a Savings Account would result in a $1.5 fee, and the recipient would receive $98.5. These different fee structures and account characteristics cater to various user needs, from personal saving to business transactions.
+
+Allowed Operations:
+Create
+Deposit
+Withdraw
+Transfer
+View(shows the initial deposit, deposit, withdrawals and transfers in order made from the account)
+Deactivate
+Activate
+Note 1: that a person can't have two or more accounts at the same time.
+
+Note 2: the initial state of the account is Active. During transferring only the account from which the transfer is made should have it in history. The account to which money is transferred, balance should be increased. Refer to the examples.
+
+Error Handling: Systematically handle errors with specific messages with priority:
+Account does not exist: "Error: Account X does not exist."
+Withdrawal from an inactive account: "Error: Account X is inactive."
+Insufficient funds for Transfer and Withdraw: "Error: Insufficient funds for X."
+Activate an activated account: "Error: Account X is already activated."
+Deactivate a deactivated account: "Error: Account X is already deactivated."
+Input
+The input file is structured as follows:
+
+The first line contains a single integer n
+, where 1≤n≤2000
+, denoting the number of banking operations.
+Each of the next n
+ lines contains a banking operation command. The format for each command is [T]N, where T
+ is the type of operation and N
+ is the detail of the operation. Each parameter in the operation is denoted as [type]parameterName. Everything inside the parentheses "()" is an additional event description.
+Accounts' names consist of lowercase and uppercase latin letters only. Numbers in the input, like $initialDeposit, will have either one digit after the decimal point, or will be without a decimal point. For example, the input might contain 100 or 250.5, but not 330.33.
+
+"Create Account $[string]accountType $[string]accountName $[float]initialDeposit" (accountType
+ can be Savings, Checking, or Business. 1≤initialDeposit≤450
+, 1≤len(accountName)≤10
+).
+"Deposit $[string]accountName $[float]depositAmount" ( 1≤depositAmount≤450
+).
+"Withdraw $[string]accountName $[float]withdrawalAmount" ( 1≤withdrawalAmount≤5000
+).
+"Transfer $[string]fromAccountName $[string]toAccountName $[float]transferAmount" ( 1≤transferAmount≤5000
+).
+"View $[string]accountName" (show details about a certain account).
+"Deactivate $[string]accountName" (deactivate a certain account).
+"Activate $[string]accountName" (activate a certain account).
+Output
+The ordered list of outputs matches the events in the input. Each event output is on its own line. Note that $transactionFeePercentage, the output should have only one digit after the decimal point, e.g. "1.5%". As for other float values like depositAmount, exactly three digits should be shown after the decimal point. Also note that each transaction and balance are in USD, and thus the symbol '$' should precede amounts in the output.
+
+"A new $[string]accountType account created for $[string]accountName with an initial balance of $[float]initialDeposit."
+"$[string]accountName successfully deposited $[float]depositAmount. New Balance: $[float]balance."
+"$[string]accountName successfully withdrew $[float]withdrawalAmount. New Balance: $[float]balance. Transaction Fee: $[float]transactionFee ($[float]transactionFeePercentage%) in the system."
+"$[string]fromAccountName successfully transferred $[float]transferAmount to $[string]toAccountName. New Balance: $[float]balance. Transaction Fee: $[float]transactionFee ($[float]transactionFeePercentage%) in the system."
+"$[string]accountName's Account: Type: $[string]accountType, Balance: $[float], State: $[string]state, Transactions: $[TransactionEventList]history." ($state can either be Active or Inactive. The history of the transactions is saved without the fees. The history is shown by the order in which the transaction were carried out. An element in the history list can be one of the following: a) "Initial Deposit $[float]initialDeposit". b) "Deposit $[float]depositAmount". c) "Withdrawal $[float]withdrawalAmount". d) "Transfer $[float]transferAmount")
+"$[string]accountName's account is now deactivated."
+"$[string]accountName's account is now activated."
+Examples
+InputСкопировать
+5
+Create Account Savings JohnDoe 450.0
+Withdraw JohnDoe 150.0
+Create Account Checking JaneDoe 300.0
+Transfer JohnDoe JaneDoe 500.0
+View JohnDoe
+OutputСкопировать
+A new Savings account created for JohnDoe with an initial balance of $450.000.
+JohnDoe successfully withdrew $147.750. New Balance: $300.000. Transaction Fee: $2.250 (1.5%) in the system.
+A new Checking account created for JaneDoe with an initial balance of $300.000.
+Error: Insufficient funds for JohnDoe.
+JohnDoe's Account: Type: Savings, Balance: $300.000, State: Active, Transactions: [Initial Deposit $450.000, Withdrawal $150.000].
+InputСкопировать
+7
+Create Account Savings JohnDoe 70.0
+Create Account Checking JaneDoe 80.0
+Deposit JohnDoe 30.0
+Transfer JohnDoe Alice 1200.0
+Create Account Savings Alice 50.0
+Deactivate JohnDoe
+Transfer JohnDoe Alice 1200.0
+OutputСкопировать
+A new Savings account created for JohnDoe with an initial balance of $70.000.
+A new Checking account created for JaneDoe with an initial balance of $80.000.
+JohnDoe successfully deposited $30.000. New Balance: $100.000.
+Error: Account Alice does not exist.
+A new Savings account created for Alice with an initial balance of $50.000.
+JohnDoe's account is now deactivated.
+Error: Account JohnDoe is inactive.
+InputСкопировать
+8
+Create Account Savings JohnDoe 70.0
+Create Account Checking JaneDoe 80.0
+Deactivate JohnDoe
+Transfer JohnDoe Alice 20.0
+Activate JohnDoe
+Transfer JohnDoe Alice 1200.0
+Create Account Savings Alice 50.0
+Transfer JohnDoe Alice 1200.0
+OutputСкопировать
+A new Savings account created for JohnDoe with an initial balance of $70.000.
+A new Checking account created for JaneDoe with an initial balance of $80.000.
+JohnDoe's account is now deactivated.
+Error: Account Alice does not exist.
+JohnDoe's account is now activated.
+Error: Account Alice does not exist.
+A new Savings account created for Alice with an initial balance of $50.000.
+Error: Insufficient funds for JohnDoe.
