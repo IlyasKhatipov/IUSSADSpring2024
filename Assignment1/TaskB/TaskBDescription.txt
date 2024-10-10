@@ -1,0 +1,80 @@
+B. Complex Number Operations
+time limit per test1 second
+memory limit per test256 megabytes
+You are given a set of complex numbers represented in the form a+bi
+, where a
+ and b
+ are real numbers fixed to 2 decimal places in the mantissa, and i
+ is the imaginary unit i2=−1
+. Your task is to implement a class Complex
+ to perform various operations on complex numbers.
+
+The class should support the following functionalities:
+
+Addition of two complex numbers (+
+).
+Subtraction of two complex numbers (−
+).
+Multiplication of two complex numbers (∗
+).
+Division of two complex numbers (/
+).
+Equality check between two complex numbers (equal or not equal).
+All the answers for operations should use a conversion for output representation. Conversion from a complex number to a string representation in the form "a+bi"
+.
+
+You need to implement the class Complex
+ with appropriate constructors, destructors, operator functions, and conversion functions to achieve the functionalities mentioned above.
+
+Standard input and output have to be used. You are guaranteed to have described valid input format.
+
+Input
+The input will consist of several lines. The first line will contain the number of operations to be carried out. Followed by lines of the following format (op a b c d)
+. Where (op
+ is one of {+, -, *, /, =})
+
+This format represents two complex numbers a+bi
+ and c+di
+, where a
+, b
+, c
+, and d
+ are real numbers. The space is the delimiter for line members.
+
+Constraints:
+
+Number of operations: [1, 25]
+a
+, b
+, c
+, d
+: [-50.00, 49.00]
+Output
+The number of output lines should suit the number of input lines. For each pair of complex numbers, the output is the result of the specified operation as described above. For the addition, subtraction, multiplication, and division operators, the result is a complex number represented in the form a+bi
+, while for the equality operator, the result is either true
+ or false
+. If any component of the output is 0
+, then it should be explicitly added to the output result, e.g., 0.00+0.00i
+ is allowed.
+
+Examples
+InputСкопировать
+3
+= 22.00 -39.00 47.00 -20.00
+/ 38.00 15.00 23.00 -15.00
+- 32.00 34.00 -3.00 -25.00
+OutputСкопировать
+false
+0.86+1.21i
+35.00+59.00i
+InputСкопировать
+4
+/ 10.00 48.00 -48.00 -33.00
++ 0.00 13.00 -11.00 16.00
++ -14.00 46.00 -28.00 27.00
++ 8.00 43.00 -13.00 -5.00
+OutputСкопировать
+-0.61-0.58i
+-11.00+29.00i
+-42.00+73.00i
+-5.00+38.00i
